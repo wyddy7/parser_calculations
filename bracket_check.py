@@ -1,0 +1,125 @@
+import math
+
+def count_letters(list, val):
+    count = 0
+    for item in list:
+        if item == '(' == val:
+            count += 1
+        elif item == ')' == val:
+            count += 1
+    return count
+
+def is_balanced(text, brackets="〈〉()[]{}"):
+    opening, closing = brackets[::2], brackets[1::2]
+    stack = []  # keep track of opening brackets types
+    for character in text:
+        if character in opening:  # bracket
+            stack.append(opening.index(character))
+        elif character in closing:  # bracket
+            if stack and stack[-1] == closing.index(character):
+                stack.pop()  # remove the matched pair
+            else:
+                return False  # unbalanced (no corresponding opening bracket) or
+                               # unmatched (different type) closing bracket
+    return (not stack)  # no unbalanced brackets
+
+# 3 + 4 * ( ( 7 /p/ 9 * 25 ) 
+def last_pair(list):
+    if list[len(list)-1] == ')':
+        close_bracket_flag = 0
+        reversed_list = []
+        for item in list[::-1]:
+            if item == '(' and close_bracket_flag == 1: 
+                reversed_list.append(item)
+                # print(1, close_bracket_flag, item)
+                return reversed_list[::-1]
+            elif item == ')':
+                close_bracket_flag += 1
+                reversed_list.append(item)
+                # print(2, close_bracket_flag, item)
+            elif item == '(' and close_bracket_flag > 0:
+                close_bracket_flag -= 1
+                reversed_list.append(item)
+                # print(3, close_bracket_flag, item)
+            elif item != '(':
+                reversed_list.append(item)
+                # print(4, close_bracket_flag, item)
+    else: return list[len(list)-1:]
+
+# 9 * 25 ) lg + 6 
+def next_pair(list):
+    # print("OH NOOOO: ", list[0])
+    if list[0] == '*': list = list[1:]
+    if list[0] == '(':
+        close_bracket_flag = 0
+        reversed_list = []
+        for item in list[::-1]:
+            if item == ')' and close_bracket_flag == 1: 
+                reversed_list.append(item)
+                # print(1, close_bracket_flag, item)
+                return reversed_list[::-1]
+            elif item == '(':
+                close_bracket_flag += 1
+                reversed_list.append(item)
+                # print(2, close_bracket_flag, item)
+            elif item == ')' and close_bracket_flag > 0:
+                close_bracket_flag -= 1
+                reversed_list.append(item)
+                # print(3, close_bracket_flag, item)
+            elif item != ')':
+                reversed_list.append(item)
+                # print(4, close_bracket_flag, item)
+    else: return list[0]
+
+
+
+def balance_brackets (list):
+    open_brackets = count_letters(list, '(')
+    close_brackets = count_letters(list, ')')
+    difference = open_brackets - close_brackets
+    # print('dif: ', difference)
+    if difference > 0:
+        while difference != 0:
+            list.append(')')
+            difference -= 1
+    elif difference < 0:
+        while difference != 0:
+            list.insert(0, '(')
+            difference += 1
+    # elif difference == 0:
+    #     if if_pair(list):
+    #         list.insert(0, '(')
+    #         list.append(')')
+
+    return list
+
+# def if_pair(list):
+#     first_open = False
+#     last_close = False
+
+#     for item in list:
+#         if item == ')':
+#             first_open = False
+#             break
+#         if item == '(':
+#             first_open = True
+#             break
+
+#     for item in list[::-1]:
+#         if item == ')':
+#             last_close = True
+#             break
+#         if item == '(':
+#             last_close = False
+#             break
+#     # print('first: ', first_open, 'and', last_close)
+#     rez = first_open and last_close
+#     return rez
+# temp = ['3', '+', '3', ')', '*', '(', '9', '*','3']
+# temp1 = ['(', '3', '+', '3', ')', '*', '(', '9', '*','3']
+# temp2 = ['3', '+', '3', ')', '*', '(', '9', '*','3', ')']
+# temp3 = ['(', '3', '+', '3', ')', '*', '(', '9', '*','3', ')']
+# print('if_pair: ', if_pair(temp))
+# print('if_pair1: ', if_pair(temp1))
+# print('if_pair2: ', if_pair(temp2))
+# print('if_pair3: ', if_pair(temp3))
