@@ -3,54 +3,32 @@ from bracket_check import *
 from functions import *
 
 def transform_list (list):
+    if not list:
+        return []
     new_list = []
-    for i in range(len(list)):
-        print("reading: ", list[i])
-        if list[i] == "/p/":
-            print("sqrt")
-            # new_list = sqrt_p(list)
-            if not new_list:
-                print("New-list is empty")
-                new_list = sqrt_p(list)
-            else:
-                print("New-list is not empty")
-                new_list = sqrt_p(new_list)
-        elif list[i] == "lg":
-            if not new_list:
-                print("New-list is empty")
-                new_list = lg(list)
-            else:
-                print("New-list is not empty")
-                new_list = lg(new_list)
-        elif list[i] == "ln":
-            if not new_list:
-                print("New-list is empty")
-                new_list = ln(list)
-            else:
-                print("New-list is not empty")
-                new_list = ln(new_list)
-        elif list[i] == "y^x":
-            if not new_list:
-                print("New-list is empty")
-                new_list = degree_y(list)
-            else:
-                print("New-list is not empty")
-                new_list = degree_y(new_list)
-        elif list[i] == "sin" or list[i] == "cos" or list[i] == "tan" or list[i] == "cot":
-            if not new_list:
-                print("New-list is empty")
-                new_list = trigonometr(list)
-            else:
-                print("New-list is not empty")
-                new_list = trigonometr(new_list)
+    operations = {
+        "/p/": sqrt_p,
+        "lg": lg,
+        "ln": ln,
+        "y^x": degree_y,
+        "sin": trigonometr,
+        "cos": trigonometr,
+        "tan": trigonometr,
+        "1/": reverse_x,
+    }
 
-        if new_list is None:  # Проверка на случай, если одна из функций вернула None
-            raise ValueError("Одна из функций вернула None. Проверьте реализацию.")
-        
-        if list[i] == list[len(list)-1] and not new_list:
-            new_list = list
+    for item in list:
+        if item in operations:
+            func = operations[item]
+            new_list = func(new_list if new_list else list)
 
-    return new_list    
+            if new_list is None:
+                raise ValueError("Одна из функций вернула None. Проверьте реализацию.")
+            if item == list[len(list)-1] and not new_list:
+                new_list = list
+
+    return new_list if new_list else list  
+
     
 
 
@@ -68,10 +46,10 @@ def rez(input_val):
 
     before = " ".join(list)
     became = " ".join(transform_list(list))
-    print("before: ", before, "\nbecame: ", became)
+    print("\nbefore: ", before, "\nbecame: ", became, '\n')
 
     result = eval(became)
-    print(result)
+    print('result: ', result)
     print('Ending process...\n')
 
 def parse_expression(expression):
@@ -114,6 +92,9 @@ rez(input_val)
 input_val = parse_expression("6 tan + ( 6 + 8 ) tan")
 rez(input_val)
 
-# cot
-input_val = parse_expression("6 cot + ( 6 + 8 ) cot")
+# 1/
+input_val = parse_expression("4 * 5 / 7 + 29 / ( 3 * 11 ) ) * ( 19 / ( 2 + 4 ) + ( 13 + 3.1415926 ) / 4 1/")
 rez(input_val)
+input_val = parse_expression("6 tan + ( 6 + 8 ) tan 1/")
+rez(input_val)
+

@@ -49,27 +49,28 @@ def last_pair(list):
 # 9 * 25 ) lg + 6 
 def next_pair(list):
     # print("OH NOOOO: ", list[0])
+    new_list = []
     if list[0] == '*': list = list[1:]
     if list[0] == '(':
         close_bracket_flag = 0
-        reversed_list = []
-        for item in list[::-1]:
+        for item in list:
+            # print("item: ", item)
             if item == ')' and close_bracket_flag == 1: 
-                reversed_list.append(item)
-                # print(1, close_bracket_flag, item)
-                return reversed_list[::-1]
-            elif item == '(':
-                close_bracket_flag += 1
-                reversed_list.append(item)
-                # print(2, close_bracket_flag, item)
-            elif item == ')' and close_bracket_flag > 0:
+                new_list.append(item)
+                # print("next_pair is: ", new_list)
+                return new_list
+            elif item == ')' and close_bracket_flag > 1:
+                new_list.append(item)
                 close_bracket_flag -= 1
-                reversed_list.append(item)
-                # print(3, close_bracket_flag, item)
-            elif item != ')':
-                reversed_list.append(item)
-                # print(4, close_bracket_flag, item)
-    else: return list[0]
+            elif item == '(':
+                new_list.append(item)
+                close_bracket_flag += 1
+            else:
+                new_list.append(item)
+                # print(2, close_bracket_flag, item)
+    else:
+        new_list.append(list[0])
+        return new_list
 
 
 
