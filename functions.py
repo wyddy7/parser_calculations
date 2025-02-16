@@ -58,7 +58,7 @@ def trigonometr(list):
             # print(list[i])
             new_list = first_args
             if list[i] == "sin": new_list.append("math.sin")
-            elif [i] == "cos": new_list.append("math.cos")
+            elif list[i] == "cos": new_list.append("math.cos")
             elif list[i] == "tan": new_list.append("math.tan")
             new_list.append("(")
             new_list += pair

@@ -87,40 +87,6 @@ def balance_brackets (list):
         while difference != 0:
             list.insert(0, '(')
             difference += 1
-    # elif difference == 0:
-    #     if if_pair(list):
-    #         list.insert(0, '(')
-    #         list.append(')')
+
 
     return list
-
-# def if_pair(list):
-#     first_open = False
-#     last_close = False
-
-#     for item in list:
-#         if item == ')':
-#             first_open = False
-#             break
-#         if item == '(':
-#             first_open = True
-#             break
-
-#     for item in list[::-1]:
-#         if item == ')':
-#             last_close = True
-#             break
-#         if item == '(':
-#             last_close = False
-#             break
-#     # print('first: ', first_open, 'and', last_close)
-#     rez = first_open and last_close
-#     return rez
-# temp = ['3', '+', '3', ')', '*', '(', '9', '*','3']
-# temp1 = ['(', '3', '+', '3', ')', '*', '(', '9', '*','3']
-# temp2 = ['3', '+', '3', ')', '*', '(', '9', '*','3', ')']
-# temp3 = ['(', '3', '+', '3', ')', '*', '(', '9', '*','3', ')']
-# print('if_pair: ', if_pair(temp))
-# print('if_pair1: ', if_pair(temp1))
-# print('if_pair2: ', if_pair(temp2))
-# print('if_pair3: ', if_pair(temp3))
