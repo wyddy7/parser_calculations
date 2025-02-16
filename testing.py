@@ -118,5 +118,21 @@ input_val = parse_expression("6 tan + ( 6 + 8 ) tan 1/")
 real_val = -0.152972
 test_val(rez(input_val), real_val, testf)
 
+input_val = parse_expression("3 + 9 sqrt")
+real_val = 6
+test_val(rez(input_val), real_val, testf)
+
+input_val = parse_expression(" 3 + 6 ) sqrt")
+real_val = 3
+test_val(rez(input_val), real_val, testf)
+
+input_val = parse_expression("( 3 + 6 ) sqrt")
+real_val = 3
+test_val(rez(input_val), real_val, testf)
+
+input_val = parse_expression("4 + ( 3 + 6 ) sqrt")
+real_val = 7
+test_val(rez(input_val), real_val, testf)
+
 
 testf.close()

@@ -9,6 +9,7 @@ def transform_list(list):
     new_list = []
     operations = {
         "/p/": sqrt_p,
+        "sqrt": sqrt,
         "lg": lg,
         "ln": ln,
         "y^x": degree_y,
@@ -44,7 +45,7 @@ def rez(input_val):
 
     before = " ".join(list)
     became = " ".join(transform_list(list))
-    print("\n--before: ", before, "\nbecame: ", became, "\n")
+    print("\n--before: ", before, "\n--became: ", became, "\n")
 
     result = eval(became)
     print("--result: ", result)

@@ -28,7 +28,45 @@ def sqrt_p(list):
             # print("new_list: ", new_list)
             return new_list
 
+def sqrt(list: list):
+    # print('found sqrt_p...')
+    new_list = []
+    for i in range(len(list)):
+        if list[i] == "sqrt":
+            if list[i-1] == ')':
+                pair = last_pair(list[:i])
+                # print("pair:", pair)
+                first_args = list[: i - len(pair)+1]
+                second_args = list[i + 1 :]
+                
+                # print(first_args, " and ", second_args)
 
+                # new_list = first_args + ["sqrt", "("] + pair + ["**", "2", "+"] + pair_two + ["**", "2", ")"] + second_args[len(pair_two):]
+                new_list = first_args
+                new_list.append("math.sqrt")
+                new_list.append("(")
+                new_list += pair
+                # new_list += pair_two
+                new_list.append(")")
+                new_list += second_args[len(first_args)+len(pair):]
+                # print("second_args[len(first_args)+len(pair):]: ", second_args[len(first_args)+len(pair):])
+                # print("new_list: ", new_list)
+                while not is_balanced(new_list):  # Проверка на сбалансированность скобок
+                    new_list.append(")")
+                return new_list
+            else:
+                left_part = list[:i-1]     
+                main_part = list[i-1]
+                right_part = list[i+1:]
+                new_list += left_part
+                new_list.append("math.sqrt")
+                new_list.append("(")
+                new_list += main_part
+                
+                new_list.append(")")
+                new_list += right_part
+                return new_list
+                           
 def lg(list):
     # print('found log10...')
     # print("WTF IS HERE???")
