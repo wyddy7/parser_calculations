@@ -2,165 +2,165 @@ from bracket_check import *
 import re
 
 
-def sqrt_p(list):
+def sqrt_p(listy: list):
     # print('found sqrt_p...')
-    for i in range(len(list)):
-        if list[i] == "/p/":
-            pair = last_pair(list[:i])
-            first_args = list[: i - len(pair)]
-            second_args = list[i + 1 :]
+    for i in range(len(listy)):
+        if listy[i] == "/p/":
+            pair = last_pair(listy[:i])
+            first_args = listy[: i - len(pair)]
+            second_args = listy[i + 1 :]
             pair_two = next_pair(second_args)
             # print(first_args, " and ", second_args)
 
-            # new_list = first_args + ["sqrt", "("] + pair + ["**", "2", "+"] + pair_two + ["**", "2", ")"] + second_args[len(pair_two):]
-            new_list = first_args
-            new_list.append("math.sqrt")
-            new_list.append("(")
-            new_list += pair
-            new_list.append("**")
-            new_list.append("2")
-            new_list.append("+")
-            new_list += pair_two
-            new_list.append("**")
-            new_list.append("2")
-            new_list.append(")")
-            new_list += second_args[len(pair_two) :]
-            # print("new_list: ", new_list)
-            return new_list
+            # new_listy = first_args + ["sqrt", "("] + pair + ["**", "2", "+"] + pair_two + ["**", "2", ")"] + second_args[len(pair_two):]
+            new_listy = first_args
+            new_listy.append("math.sqrt")
+            new_listy.append("(")
+            new_listy += pair
+            new_listy.append("**")
+            new_listy.append("2")
+            new_listy.append("+")
+            new_listy += pair_two
+            new_listy.append("**")
+            new_listy.append("2")
+            new_listy.append(")")
+            new_listy += second_args[len(pair_two) :]
+            # print("new_listy: ", new_listy)
+            return new_listy
 
-def sqrt(list: list):
+def sqrt(listy: list):
     # print('found sqrt_p...')
-    new_list = []
-    for i in range(len(list)):
-        if list[i] == "sqrt":
-            if list[i-1] == ')':
-                pair = last_pair(list[:i])
+    new_listy = []
+    for i in range(len(listy)):
+        if listy[i] == "sqrt":
+            if listy[i-1] == ')':
+                pair = last_pair(listy[:i])
                 # print("pair:", pair)
-                first_args = list[: i - len(pair)+1]
-                second_args = list[i + 1 :]
+                first_args = listy[: i - len(pair)+1]
+                second_args = listy[i + 1 :]
                 
                 # print(first_args, " and ", second_args)
 
-                # new_list = first_args + ["sqrt", "("] + pair + ["**", "2", "+"] + pair_two + ["**", "2", ")"] + second_args[len(pair_two):]
-                new_list = first_args
-                new_list.append("math.sqrt")
-                new_list.append("(")
-                new_list += pair
-                # new_list += pair_two
-                new_list.append(")")
-                new_list += second_args[len(first_args)+len(pair):]
+                # new_listy = first_args + ["sqrt", "("] + pair + ["**", "2", "+"] + pair_two + ["**", "2", ")"] + second_args[len(pair_two):]
+                new_listy = first_args
+                new_listy.append("math.sqrt")
+                new_listy.append("(")
+                new_listy += pair
+                # new_listy += pair_two
+                new_listy.append(")")
+                new_listy += second_args[len(first_args)+len(pair):]
                 # print("second_args[len(first_args)+len(pair):]: ", second_args[len(first_args)+len(pair):])
-                # print("new_list: ", new_list)
-                while not is_balanced(new_list):  # Проверка на сбалансированность скобок
-                    new_list.append(")")
-                return new_list
+                # print("new_listy: ", new_listy)
+                while not is_balanced(new_listy):  # Проверка на сбалансированность скобок
+                    new_listy.append(")")
+                return new_listy
             else:
-                left_part = list[:i-1]     
-                main_part = list[i-1]
-                right_part = list[i+1:]
-                new_list += left_part
-                new_list.append("math.sqrt")
-                new_list.append("(")
-                new_list += main_part
+                left_part = listy[:i-1]     
+                main_part = listy[i-1]
+                right_part = listy[i+1:]
+                new_listy += left_part
+                new_listy.append("math.sqrt")
+                new_listy.append("(")
+                new_listy += main_part
                 
-                new_list.append(")")
-                new_list += right_part
-                return new_list
+                new_listy.append(")")
+                new_listy += right_part
+                return new_listy
                            
-def lg(list):
+def lg(listy: list):
     # print('found log10...')
     # print("WTF IS HERE???")
-    for i in range(len(list)):
-        if list[i] == "lg":
-            pair = last_pair(list[:i])
+    for i in range(len(listy)):
+        if listy[i] == "lg":
+            pair = last_pair(listy[:i])
             # print("pair:", pair)
-            first_args = list[: i - len(pair)]
-            second_args = list[i + 1 :]
+            first_args = listy[: i - len(pair)]
+            second_args = listy[i + 1 :]
             # print(first_args, " and2 ", second_args)
 
-            new_list = first_args
-            new_list.append("math.log10")
-            new_list.append("(")
-            new_list += pair
-            new_list.append(")")
-            new_list += second_args
-            return new_list
+            new_listy = first_args
+            new_listy.append("math.log10")
+            new_listy.append("(")
+            new_listy += pair
+            new_listy.append(")")
+            new_listy += second_args
+            return new_listy
 
 
-def trigonometr(list):
-    for i in range(len(list)):
-        if list[i] == "sin" or list[i] == "cos" or list[i] == "tan" or list[i] == "cot":
-            # print(f'found {list[i]}...')
-            pair = last_pair(list[:i])
+def trigonometr(listy: list):
+    for i in range(len(listy)):
+        if listy[i] == "sin" or listy[i] == "cos" or listy[i] == "tan" or listy[i] == "cot":
+            # print(f'found {listy[i]}...')
+            pair = last_pair(listy[:i])
             # print("pair:", pair)
-            first_args = list[: i - len(pair)]
-            second_args = list[i + 1 :]
+            first_args = listy[: i - len(pair)]
+            second_args = listy[i + 1 :]
             # print(first_args, " and2 ", second_args)
-            # print(list[i])
-            new_list = first_args
-            if list[i] == "sin":
-                new_list.append("math.sin")
-            elif list[i] == "cos":
-                new_list.append("math.cos")
-            elif list[i] == "tan":
-                new_list.append("math.tan")
-            new_list.append("(")
-            new_list += pair
-            new_list.append(")")
-            new_list += second_args
-            return new_list
+            # print(listy[i])
+            new_listy = first_args
+            if listy[i] == "sin":
+                new_listy.append("math.sin")
+            elif listy[i] == "cos":
+                new_listy.append("math.cos")
+            elif listy[i] == "tan":
+                new_listy.append("math.tan")
+            new_listy.append("(")
+            new_listy += pair
+            new_listy.append(")")
+            new_listy += second_args
+            return new_listy
 
 
-def ln(list):
-    for i in range(len(list)):
-        if list[i] == "ln":
-            pair = last_pair(list[:i])
+def ln(listy: list):
+    for i in range(len(listy)):
+        if listy[i] == "ln":
+            pair = last_pair(listy[:i])
             # print("pair:", pair)
-            first_args = list[: i - len(pair)]
-            second_args = list[i + 1 :]
+            first_args = listy[: i - len(pair)]
+            second_args = listy[i + 1 :]
             # print(first_args, " and2 ", second_args)
 
-            new_list = first_args
-            new_list.append("math.log")
-            new_list.append("(")
-            new_list += pair
-            new_list.append(")")
-            new_list += second_args
-            # print(new_list)
-            return new_list
+            new_listy = first_args
+            new_listy.append("math.log")
+            new_listy.append("(")
+            new_listy += pair
+            new_listy.append(")")
+            new_listy += second_args
+            # print(new_listy)
+            return new_listy
 
 
-def degree_y(list):
-    for i in range(len(list)):
-        if list[i] == "y^x":
-            pair = last_pair(list[:i])
+def degree_y(listy: list):
+    for i in range(len(listy)):
+        if listy[i] == "y^x":
+            pair = last_pair(listy[:i])
             # print("pair:", pair)
-            first_args = list[: i - len(pair)]
-            second_args = list[i + 1 :]
+            first_args = listy[: i - len(pair)]
+            second_args = listy[i + 1 :]
             pair_two = next_pair(second_args)
 
             # print(first_args, " and2 ", second_args)
 
-            new_list = first_args
-            new_list.append("(")
-            new_list += pair
-            new_list.append("**")
-            new_list += pair_two
-            new_list.append(")")
+            new_listy = first_args
+            new_listy.append("(")
+            new_listy += pair
+            new_listy.append("**")
+            new_listy += pair_two
+            new_listy.append(")")
             # print('pair_two len: ', len(pair_two))
-            new_list += second_args[len(pair_two) :]
-            return new_list
+            new_listy += second_args[len(pair_two) :]
+            return new_listy
 
 
-def reverse_x(list):
-    print("list:", list)
+def reverse_x(listy: list):
+    print("listy:", listy)
     addition = []
-    new_list = []
-    for i in range(len(list)):
-        if list[i] == "1/":
-            pair = last_pair(list[:i])
+    new_listy = []
+    for i in range(len(listy)):
+        if listy[i] == "1/":
+            pair = last_pair(listy[:i])
             print("pair:", pair)
-            first_args = list[: i - len(pair)]
+            first_args = listy[: i - len(pair)]
             previous_val = [first_args[len(first_args) - 1]]
             print(
                 "previous_val:",
@@ -172,20 +172,20 @@ def reverse_x(list):
             ):
                 addition = previous_val
                 print("addition:", addition)
-            second_args = list[i + 1 :]
+            second_args = listy[i + 1 :]
 
             # print(first_args, " and2 ", second_args)
 
-            new_list = first_args
+            new_listy = first_args
             if addition:
-                new_list.pop()
-            new_list.append("(")
-            new_list.append("1")
-            new_list.append("/")
+                new_listy.pop()
+            new_listy.append("(")
+            new_listy.append("1")
+            new_listy.append("/")
             if addition:
-                new_list += addition
-            new_list += pair
-            new_list.append(")")
-            new_list += second_args
+                new_listy += addition
+            new_listy += pair
+            new_listy.append(")")
+            new_listy += second_args
 
-    return new_list
+    return new_listy

@@ -1,7 +1,7 @@
 from parser import *
 
 
-def test_val(input_val, real_val, file):
+def test_val(input_val: list, real_val:float, file):
 
     print(input_val)
     eps = input_val / real_val
@@ -132,6 +132,14 @@ test_val(rez(input_val), real_val, testf)
 
 input_val = parse_expression("4 + ( 3 + 6 ) sqrt")
 real_val = 7
+test_val(rez(input_val), real_val, testf)
+
+input_val = parse_expression("9 sqrt + 9 sqrt - 3")
+real_val = 3
+test_val(rez(input_val), real_val, testf)
+
+input_val = parse_expression("3 + 2 - 3")
+real_val = 2
 test_val(rez(input_val), real_val, testf)
 
 
